@@ -4020,6 +4020,30 @@
     "id": "hunger_blank"
   },
   {
+    "type": "effect_type",
+    "id": "arousal_not_horny"
+  },
+  {
+    "type": "effect_type",
+    "id": "arousal_blank"
+  },
+  {
+    "type": "effect_type",
+    "id": "arousal_lewd"
+  },
+  {
+    "type": "effect_type",
+    "id": "arousal_bothered"
+  },
+  {
+    "type": "effect_type",
+    "id": "arousal_horny"
+  },
+  {
+    "type": "effect_type",
+    "id": "arousal_insatiable"
+  },
+  {
     "//": "Limits the number of police bots summoned to 3 every 6 hours",
     "type": "effect_type",
     "id": "eyebot_assisted",

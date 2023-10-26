@@ -78,6 +78,16 @@
     ]
   },
   {
+    "id": "arousal_desc_layout_label",
+    "type": "widget",
+    "style": "layout",
+    "label": "Arousal",
+    "arrange": "rows",
+    "widgets": [
+      "arousal_desc_label"
+    ]
+  },
+  {
     "id": "stamina_speed_layout",
     "type": "widget",
     "style": "layout",

@@ -500,6 +500,9 @@ class talker
         virtual int get_instant_thirst() const {
             return 0;
         }
+        virtual int get_arousal() const {
+            return 0;
+        }
         virtual int get_stored_kcal() const {
             return 0;
         }

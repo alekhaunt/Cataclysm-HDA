@@ -16,6 +16,7 @@
 #include "vehicle.h"
 #include "vpart_position.h"
 #include "weather.h"
+#include <string>
 
 static const bionic_id bio_sleep_shutdown( "bio_sleep_shutdown" );
 
@@ -44,6 +45,12 @@ static const efftype_id effect_hunger_near_starving( "hunger_near_starving" );
 static const efftype_id effect_hunger_satisfied( "hunger_satisfied" );
 static const efftype_id effect_hunger_starving( "hunger_starving" );
 static const efftype_id effect_hunger_very_hungry( "hunger_very_hungry" );
+static const efftype_id effect_arousal_not_horny("arousal_not_horny");
+static const efftype_id effect_arousal_blank("arousal_blank");
+static const efftype_id effect_arousal_lewd("arousal_lewd");
+static const efftype_id effect_arousal_bothered("arousal_bothered");
+static const efftype_id effect_arousal_horny("arousal_horny");
+static const efftype_id effect_arousal_insatiable("arousal_insatiable");
 static const efftype_id effect_hypovolemia( "hypovolemia" );
 static const efftype_id effect_infected( "infected" );
 static const efftype_id effect_mending( "mending" );
@@ -208,6 +215,7 @@ void Character::update_body( const time_point &from, const time_point &to )
         oxygen = std::min( oxygen, get_oxygen_max() );
     }
     update_stomach( from, to );
+    update_arousal(from, to);
     recalculate_enchantment_cache();
     update_enchantment_mutations();
     if( ticks_between( from, to, 3_minutes ) > 0 ) {
@@ -1063,6 +1071,49 @@ void Character::update_stomach( const time_point &from, const time_point &to )
         remove_effect( effect_hunger_famished );
         remove_effect( effect_hunger_blank );
         add_effect( hunger_effect, 24_hours, true );
+    }
+}
+
+void Character::update_arousal(const time_point& from, const time_point& to)
+{
+    const needs_rates rates = calc_needs_rates();
+    const bool debug_ls = has_trait(trait_DEBUG_LS);
+    const int min = ticks_between(from, to, 1_minutes);
+    efftype_id arousal_effect;
+
+    if (!can_be_aroused()) {
+        return;
+    }
+
+    mod_arousal(roll_remainder(rates.arousal * min));
+
+    if (arousal < 100) {
+        arousal_effect = effect_arousal_not_horny;
+    }
+    else if (arousal < 300) {
+        arousal_effect = effect_arousal_blank;
+    }
+    else if (arousal < 500) {
+        arousal_effect = effect_arousal_lewd;
+    }
+    else if (arousal < 700) {
+        arousal_effect = effect_arousal_bothered;
+    }
+    else if (arousal < 900) {
+        arousal_effect = effect_arousal_horny;
+    }
+    else if (arousal < 1000) {
+        arousal_effect = effect_arousal_insatiable;
+    }
+
+    if (!has_effect(arousal_effect)) {
+        remove_effect(effect_arousal_not_horny);
+        remove_effect(effect_arousal_blank);
+        remove_effect(effect_arousal_lewd);
+        remove_effect(effect_arousal_bothered);
+        remove_effect(effect_arousal_horny);
+        remove_effect(effect_arousal_insatiable);
+        add_effect(arousal_effect, 24_hours, true);
     }
 }
 

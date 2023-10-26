@@ -154,6 +154,7 @@ class talker_character_const: public talker_cloner<talker_character_const>
         int get_hunger() const override;
         int get_thirst() const override;
         int get_instant_thirst() const override;
+        int get_arousal() const override;
         int get_stored_kcal() const override;
         int get_healthy_kcal() const override;
         int get_size() const override;

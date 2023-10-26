@@ -474,6 +474,8 @@ static const trait_id trait_SPINES( "SPINES" );
 static const trait_id trait_SPIRITUAL( "SPIRITUAL" );
 static const trait_id trait_STRONGBACK( "STRONGBACK" );
 static const trait_id trait_SUNLIGHT_DEPENDENT( "SUNLIGHT_DEPENDENT" );
+static const trait_id trait_SEXUAL_AVERSION("SEXUAL_AVERSION");
+static const trait_id trait_SEXUAL_COMPULSIVE("SEXUAL_COMPULSIVE");
 static const trait_id trait_THORNS( "THORNS" );
 static const trait_id trait_THRESH_BEAST( "THRESH_BEAST" );
 static const trait_id trait_THRESH_FELINE( "THRESH_FELINE" );
@@ -538,6 +540,7 @@ Character::Character() :
     daily_health = 0;
     health_tally = 0;
     hunger = 0;
+    arousal = 0;
     thirst = 0;
     fatigue = 0;
     sleep_deprivation = 0;
@@ -4447,6 +4450,27 @@ int Character::get_starvation() const
     return 0;
 }
 
+int Character::get_arousal() const
+{
+    return arousal;
+}
+
+void Character::mod_arousal(int narousal)
+{
+    //if (can_be_aroused()) {
+    if (true) {
+        set_arousal(arousal + narousal);
+    }
+}
+
+void Character::set_arousal(int narousal)
+{
+    if (arousal != narousal) {
+        arousal = std::min(999, std::max(0, narousal));
+        on_stat_change("arousal", narousal);
+    }
+}
+
 int Character::get_thirst() const
 {
     return thirst;
@@ -4882,6 +4906,11 @@ bool Character::needs_food() const
     return !( is_npc() && get_option<bool>( "NO_NPC_FOOD" ) );
 }
 
+bool Character::can_be_aroused() const
+{
+    return !(is_npc() && get_option<bool>("NO_NPC_AROUSAL"));
+}
+
 void Character::update_needs( int rate_multiplier )
 {
     const int current_stim = get_stim();
@@ -5012,6 +5041,15 @@ needs_rates Character::calc_needs_rates() const
 
     needs_rates rates;
     rates.hunger = metabolic_rate();
+
+    rates.arousal = 0.6f;
+
+    if (has_trait(trait_SEXUAL_AVERSION)) {
+        rates.arousal /= 2.0f;
+    }
+    else if (has_trait(trait_SEXUAL_COMPULSIVE)) {
+        rates.arousal *= 2.0f;
+    }
 
     rates.kcal = get_bmr();
 

@@ -205,6 +205,16 @@
     "flags": [ "W_DISABLED_BY_DEFAULT" ]
   },
   {
+    "id": "lcom_arousal_layout",
+    "type": "widget",
+    "style": "layout",
+    "label": "Arousal",
+    "arrange": "columns",
+    "widgets": [
+      "arousal_desc_label"
+    ]
+  },
+  {
     "id": "lcom_env_overmap_wrapper",
     "type": "widget",
     "style": "layout",
@@ -287,6 +297,7 @@
       "lcom_time_layout",
       "lcom_needs_layout",
       "lcom_needs_sa_layout",
+      "lcom_arousal_layout",
       "lcom_env_layout",
       "lcom_env_alt_layout",
       "lcom_vehicle_layout",

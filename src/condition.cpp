@@ -1981,6 +1981,10 @@ std::function<double( dialogue & )> conditional_t::get_get_dbl( J const &jo )
             return [is_npc]( dialogue const & d ) {
                 return d.actor( is_npc )->get_instant_thirst();
             };
+        } else if (checked_value == "arousal") {
+            return [is_npc](dialogue const& d) {
+                return d.actor(is_npc)->get_arousal();
+            };
         } else if( checked_value == "stored_kcal" ) {
             return [is_npc]( dialogue const & d ) {
                 return d.actor( is_npc )->get_stored_kcal();

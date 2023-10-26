@@ -1,0 +1,77 @@
+[
+  {
+    "id": "arousal_desc_label",
+    "type": "widget",
+    "label": "Arousal",
+    "style": "text",
+    "clauses": [
+      {
+        "id": "insatiable",
+        "text": "Insatiable",
+        "color": "red",
+        "condition": { "compare_num": [ { "u_val": "arousal" }, ">=", { "const": 900 } ] }
+      },
+      {
+        "id": "horny",
+        "text": "Horny",
+        "color": "light_red",
+        "condition": {
+          "and": [
+            { "compare_num": [ { "u_val": "arousal" }, ">=", { "const": 700 } ] },
+            { "compare_num": [ { "u_val": "arousal" }, "<", { "const": 900 } ] }
+          ]
+        }
+      },
+      {
+        "id": "bothered",
+        "text": "Bothered",
+        "color": "yellow",
+        "condition": {
+          "and": [
+            { "compare_num": [ { "u_val": "arousal" }, ">=", { "const": 500 } ] },
+            { "compare_num": [ { "u_val": "arousal" }, "<", { "const": 700 } ] }
+          ]
+        }
+      },
+      {
+        "id": "lewd",
+        "text": "Lewd",
+        "color": "yellow",
+        "condition": {
+          "and": [
+            { "compare_num": [ { "u_val": "arousal" }, ">=", { "const": 300 } ] },
+            { "compare_num": [ { "u_val": "arousal" }, "<", { "const": 500 } ] }
+          ]
+        }
+      },
+      {
+        "id": "neutral",
+        "text": "",
+        "color": "white",
+        "condition": {
+          "and": [
+            { "compare_num": [ { "u_val": "arousal" }, ">=", { "const": 100 } ] },
+            { "compare_num": [ { "u_val": "arousal" }, "<", { "const": 300 } ] }
+          ]
+        }
+      },
+      {
+        "id": "not_horny",
+        "text": "Not horny",
+        "color": "white",
+        "condition": {
+          "and": [
+            { "compare_num": [ { "u_val": "arousal" }, ">=", { "const": 0 } ] },
+            { "compare_num": [ { "u_val": "arousal" }, "<", { "const": 100 } ] }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "arousal_desc_no_label",
+    "type": "widget",
+    "copy-from": "arousal_desc_label",
+    "flags": [ "W_LABEL_NONE" ]
+  }
+]

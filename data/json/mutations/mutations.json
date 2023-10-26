@@ -9276,5 +9276,25 @@
     "prereqs": [ "INT_ALPHA", "PER_ALPHA" ],
     "prereqs2": [ "STR_ALPHA", "DEX_ALPHA" ],
     "threshreq": [ "THRESH_ALPHA" ]
+  },
+  {
+    "type": "mutation",
+    "id": "SEXUAL_AVERSION",
+    "name": { "str": "Sexual Aversion" },
+    "points": 1,
+    "description": "You have little interest in sex and self-pleasure and get aroused much slower. You have resistance to becoming addicted to masturbation and can be rid of it quicker however the negative effects are greater. You also take longer to orgasm and have a longer refactory period",
+    "category": [ "AROUSAL" ],
+    "types": [ "AROUSAL" ],
+    "starting_trait": true
+  },
+  {
+    "type": "mutation",
+    "id": "SEXUAL_COMPULSIVE",
+    "name": { "str": "Sexual Compulsive" },
+    "points": -1,
+    "description": "You love sex and get aroused much quicker. You are more likely to become addicted to masturbation and find it hard to be rid of it but the negative effects are less debilitating. You can achieve orgasm quickly and have a shorter refactory period.",
+    "category": [ "AROUSAL" ],
+    "types": [ "AROUSAL" ],
+    "starting_trait": true
   }
 ]

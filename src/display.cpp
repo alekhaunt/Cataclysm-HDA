@@ -32,6 +32,13 @@ static const efftype_id effect_hunger_starving( "hunger_starving" );
 static const efftype_id effect_hunger_very_hungry( "hunger_very_hungry" );
 static const efftype_id effect_infected( "infected" );
 
+static const efftype_id effect_arousal_not_horny("arousal_not_horny");
+static const efftype_id effect_arousal_blank("arousal_blank");
+static const efftype_id effect_arousal_lewd("arousal_lewd");
+static const efftype_id effect_arousal_bothered("arousal_bothered");
+static const efftype_id effect_arousal_horny("arousal_horny");
+static const efftype_id effect_arousal_insatiable("arousal_insatiable");
+
 static const flag_id json_flag_THERMOMETER( "THERMOMETER" );
 
 static const itype_id fuel_type_muscle( "muscle" );
@@ -729,6 +736,29 @@ std::pair<std::string, nc_color> display::hunger_text_color( const Character &u 
         }
     }
     return std::make_pair( _( "ERROR!" ), c_light_red );
+}
+
+std::pair<std::string, nc_color> display::arousal_text_color(const Character& u)
+{ 
+    if (!u.can_be_aroused()) {
+        return std::make_pair(_("Not aroused"), c_white);
+    }
+
+    static const std::array<std::tuple<const efftype_id&, const char*, nc_color>, 6> arousal_states{ {
+            std::forward_as_tuple(effect_arousal_not_horny, translate_marker("Not Horny"), c_white),
+            std::forward_as_tuple(effect_arousal_blank, "", c_white),
+            std::forward_as_tuple(effect_arousal_lewd, translate_marker("Lewd"), c_yellow),
+            std::forward_as_tuple(effect_arousal_bothered, translate_marker("Bothered"), c_yellow),
+            std::forward_as_tuple(effect_arousal_horny, translate_marker("Horny"), c_red),
+            std::forward_as_tuple(effect_arousal_insatiable, translate_marker("Insatiable"), c_red)
+        }
+    };
+    for (const auto& arousal_state : arousal_states) {
+        if (u.has_effect(std::get<0>(arousal_state))) {
+            return std::make_pair(_(std::get<1>(arousal_state)), std::get<2>(arousal_state));
+        }
+    }
+    return std::make_pair(_("ERROR!"), c_light_red);
 }
 
 std::pair<std::string, nc_color> display::weight_text_color( const Character &u )

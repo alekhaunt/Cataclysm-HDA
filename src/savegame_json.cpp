@@ -667,6 +667,7 @@ void Character::load( const JsonObject &data )
     // needs
     data.read( "thirst", thirst );
     data.read( "hunger", hunger );
+    data.read("arousal", arousal);
     data.read( "fatigue", fatigue );
     data.read( "cardio_acc", cardio_acc );
     // Legacy read, remove after 0.F
@@ -1321,6 +1322,7 @@ void Character::store( JsonOut &json ) const
     // needs
     json.member( "thirst", thirst );
     json.member( "hunger", hunger );
+    json.member("arousal", arousal);
     json.member( "fatigue", fatigue );
     json.member( "cardio_acc", cardio_acc );
     json.member( "activity_history", activity_history );

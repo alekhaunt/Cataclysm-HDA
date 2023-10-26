@@ -157,6 +157,16 @@
     "widgets": [ "hunger_desc_label", "thirst_desc_label", "fatigue_desc_label", "pain_num_label", "body_temp_desc_label" ]
   },
   {
+    "id": "ln_arousal_layout",
+    "type": "widget",
+    "style": "layout",
+    "label": "Arousal",
+    "arrange": "columns",
+    "widgets": [
+      "arousal_desc_label"
+    ]
+  },
+  {
     "id": "legacy_labels_narrow_sidebar",
     "type": "widget",
     "style": "sidebar",
@@ -172,6 +182,7 @@
       "ln_weariness_layout",
       "ln_needs_layout",
       "ln_needs_sa_layout",
+	  "ln_arousal_layout",
       "all_location_info_rows_layout",
       "wind_temp_layout",
       "weapon_style_layout",

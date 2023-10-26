@@ -148,6 +148,16 @@
     "flags": [ "W_DISABLED_BY_DEFAULT" ]
   },
   {
+    "id": "ll_arousal_layout",
+    "type": "widget",
+    "style": "layout",
+    "label": "Arousal",
+    "arrange": "rows",
+    "widgets": [
+      "arousal_desc_label"
+    ]
+  },
+  {
     "id": "ll_place_overmap",
     "type": "widget",
     "label": "Overmap",
@@ -189,6 +199,7 @@
       "all_weariness_layout",
       "ll_needs_layout",
       "ll_needs_sa_layout",
+      "ll_arousal_layout",
       "ll_place_layout",
       "wind_temp_layout",
       "weapon_style_layout",

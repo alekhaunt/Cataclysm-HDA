@@ -615,6 +615,11 @@ int talker_character_const::get_instant_thirst() const
     return me_chr_const->get_instant_thirst();
 }
 
+int talker_character_const::get_arousal() const
+{
+    return me_chr_const->get_arousal();
+}
+
 int talker_character_const::get_stored_kcal() const
 {
     return me_chr_const->get_stored_kcal();

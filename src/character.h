@@ -144,6 +144,15 @@ enum vision_modes {
     NUM_VISION_MODES
 };
 
+enum class horny_levels : int {
+    NOT_HORNY = 100,
+    MILDLY_AROUSED = 300,
+    AROUSED = 400,
+    DISTRACTED = 500,
+    INSATIABLE = 700,
+    DEBILITATINGLY_HORNY = 900
+};
+
 enum class fatigue_levels : int {
     TIRED = 191,
     DEAD_TIRED = 383,
@@ -489,6 +498,7 @@ struct ret_val<crush_tool_type>::default_failure : public
 struct needs_rates {
     float thirst = 0.0f;
     float hunger = 0.0f;
+    float arousal= 0.0f;
     float fatigue = 0.0f;
     float recovery = 0.0f;
     float kcal = 0.0f;
@@ -666,6 +676,7 @@ class Character : public Creature, public visitable
         float get_kcal_percent() const;
         int kcal_speed_penalty() const;
         int get_hunger() const;
+        int get_arousal() const;
         int get_starvation() const;
         virtual int get_thirst() const;
         virtual int get_instant_thirst() const;
@@ -683,6 +694,7 @@ class Character : public Creature, public visitable
         /** Modifiers for need values exclusive to characters */
         void mod_stored_kcal( int nkcal, bool ignore_weariness = false );
         void mod_hunger( int nhunger );
+        void mod_arousal(int narousal);
         void mod_thirst( int nthirst );
         void mod_fatigue( int nfatigue );
         void mod_sleep_deprivation( int nsleep_deprivation );
@@ -690,6 +702,7 @@ class Character : public Creature, public visitable
         /** Setters for need values exclusive to characters */
         void set_stored_kcal( int kcal );
         void set_hunger( int nhunger );
+        void set_arousal(int narousal);
         void set_thirst( int nthirst );
         void set_fatigue( int nfatigue );
         void set_fatigue( fatigue_levels nfatigue );
@@ -897,10 +910,14 @@ class Character : public Creature, public visitable
         void update_body( const time_point &from, const time_point &to );
         /** Updates the stomach to give accurate hunger messages */
         void update_stomach( const time_point &from, const time_point &to );
+        /** Updates the arousal level to give accurate arousal messages */
+        void update_arousal(const time_point& from, const time_point& to);
         /** Updates the mutations from enchantments */
         void update_enchantment_mutations();
         /** Returns true if character needs food, false if character is an NPC with NO_NPC_FOOD set */
         bool needs_food() const;
+        /** Returns true if character can become aroused */
+        bool can_be_aroused() const;
         /** Increases hunger, thirst, fatigue and stimulants wearing off. `rate_multiplier` is for retroactive updates. */
         void update_needs( int rate_multiplier );
         needs_rates calc_needs_rates() const;
@@ -3899,6 +3916,7 @@ class Character : public Creature, public visitable
         int healthy_calories;
 
         int hunger;
+        int arousal;
         int thirst;
         int stamina;
 

@@ -428,6 +428,20 @@ void effect_type::load_mod_data( const JsonObject &j )
         {"hunger_tick",        mod_action::TICK},
     } );
 
+    // Then arousal
+    /**
+    extract_effect(to_extract, "AROUSAL", {
+        {"arousal_amount",      mod_action::AMOUNT},
+        {"arousal_min",         mod_action::MIN},
+        {"arousal_max",         mod_action::MAX},
+        {"arousal_min_val",     mod_action::MIN_VAL},
+        {"arousal_max_val",     mod_action::MAX_VAL},
+        {"arousal_chance",      mod_action::CHANCE_TOP},
+        {"arousal_chance_bot",  mod_action::CHANCE_BOT},
+        {"arousal_tick",        mod_action::TICK},
+    });
+    */
+
     // Then thirst
     extract_effect( to_extract, "THIRST", {
         {"thirst_amount",      mod_action::AMOUNT},
